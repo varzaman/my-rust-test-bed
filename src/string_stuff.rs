@@ -27,16 +27,15 @@ fn first_word_menu() {
     println!("The first word is: {}", first_word);
 }
 
-fn get_first_word(sentence: &String) -> String {
-    let chars = sentence.chars();
+// Typing the input as &str allows it to be used for both &String and &str values.
+fn get_first_word(sentence: &str) -> &str {
+    let bytes = sentence.as_bytes();
 
-    let mut first_word = String::new();
-    for char in chars {
-        if char == ' ' {
-            break;
+    for (i, &byte) in bytes.iter().enumerate() {
+        if byte == b' ' {
+            return &sentence[0..i];
         }
-        first_word.push(char);
     }
 
-    first_word
+    &sentence[..]
 }
